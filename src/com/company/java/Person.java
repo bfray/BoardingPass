@@ -2,16 +2,19 @@ package com.company.java;
 
 public class Person {
 
+    // Fields
     private String name;
     private String email;
     private String phoneNumber;
     private String gender;
     private String age;
 
+    // Default Constructor
     public Person() {
 
     }
 
+    // Parameterized Constructor
     public Person(String n, String e, String pN, String g, String a) {
 
         this.name = n;
@@ -39,6 +42,7 @@ public class Person {
         return this.age;
     }
 
+    // Mutators
     public void setName(String n){
         this.name = n;
     }
@@ -55,9 +59,14 @@ public class Person {
         this.age = a;
     }
 
+    // Printer
     @Override
     public String toString(){
-        return null;
+
+        return "Passenger Name: " + getName() +
+                " | Email Address: " + getEmail() + " | Phone Number: " + getPhoneNumber() +
+                " | Gender: " + getGender() + " | Age: " + getAge();
+
     }
 
 }
