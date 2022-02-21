@@ -1,44 +1,41 @@
 package com.company.java;
 
-import javax.xml.stream.Location;
-import java.util.Date;
-
 public class Flight {
-    private int boardingPassNumber;
-    private Date date;
-    private Location origin;
-    private Location destination;
+    private String boardingPassNumber;
+    private String date;
+    private String origin;
+    private String destination;
     private String eta;
 
-    public int getBoardingPassNumber() {
+    public String getBoardingPassNumber() {
         return boardingPassNumber;
     }
 
-    public void setBoardingPassNumber(int boardingPassNumber) {
+    public void setBoardingPassNumber(String boardingPassNumber) {
         this.boardingPassNumber = boardingPassNumber;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Location getOrigin() {
+    public String getOrigin() {
         return origin;
     }
 
-    public void setOrigin(Location origin) {
+    public void setOrigin(String origin) {
         this.origin = origin;
     }
 
-    public Location getDestination() {
+    public String getDestination() {
         return destination;
     }
 
-    public void setDestination(Location destination) {
+    public void setDestination(String destination) {
         this.destination = destination;
     }
 
@@ -53,7 +50,7 @@ public class Flight {
     public Flight(){
 
     }
-    public Flight(int bpNum, Date day, Location from, Location to, String eta){
+    public Flight(String bpNum, String day, String from, String to, String eta){
         this.boardingPassNumber = bpNum;
         this.date = day;
         this.origin = from;
@@ -63,6 +60,8 @@ public class Flight {
 
     @Override
     public String toString(){
-        return null;
+        return "Boarding Pass Number: " + getBoardingPassNumber() +
+                " | Date: " + getDate() + " | Origin: " + getOrigin() +
+                " | Destination: " + getDestination() + " | ETA: " + getEta();
     }
 }
