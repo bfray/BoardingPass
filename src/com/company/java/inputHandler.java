@@ -7,15 +7,32 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.HashMap;
+
 
 public class inputHandler {
 
     static BufferedReader keyListen = new BufferedReader(new InputStreamReader(System.in));
+    static HashMap<Integer, String> airportList = new HashMap<>();
+    static HashMap<Integer, String> coordinateList = new HashMap<>();
+    static ArrayList<String> airports = new ArrayList<>();
 
-    public static ArrayList<String> airports() throws IOException {
+    static {
+        try {
+            airports = new ArrayList<>(Files.readAllLines(Paths.get("D:\\GenSpark\\GroupProjects" +
+                        "\\BoardingPass\\BoardingPass\\src\\com\\company\\resources\\airportsInService")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        return new ArrayList<>(Files.readAllLines(Paths.get("D:\\GenSpark\\GroupProjects" +
-                "\\BoardingPass\\BoardingPass\\src\\com\\company\\resources\\airportsInService")));
+    // Initialize HashMaps for airports and coordinates
+    static {
+        for (int i = 0; i < airports.size(); i++) {
+            String[] checker = airports.get(i).split("~");
+            airportList.put(i, checker[0]);
+            coordinateList.put(i, checker[1]);
+        }
     }
 
     // Input for Person
@@ -44,7 +61,7 @@ public class inputHandler {
     }
 
     // Input for Flight
-    public static void boardingPassNumber(Flight flight) throws IOException {
+    public static void boardingPassNumber(Flight flight) {
         String aToZ="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // 36 letter.
         int targetStringLength = 6;
         Random random = new Random();

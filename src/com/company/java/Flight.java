@@ -85,6 +85,29 @@ public class Flight {
                 " | Destination: " + getDestination() + " | ETA: " + getEta() + " | Ticket Price: " + getTicketPrice();
     }
 
+    public static double calculateDistance(double latitudeX1, double latitudeX2,
+                                           double longitudeX1, double longitudeX2) {
 
+        // Convert to radians for polar calculations
+        longitudeX1 = Math.toRadians(longitudeX1);
+        longitudeX2 = Math.toRadians(longitudeX2);
+        latitudeX1 = Math.toRadians(latitudeX1);
+        latitudeX2 = Math.toRadians(latitudeX2);
+
+        // Haversine formula
+        double longitudeDifference = longitudeX2 - longitudeX1;
+        double latitudeDifference = latitudeX2 - latitudeX1;
+        double a = Math.pow(Math.sin(latitudeDifference / 2), 2)
+                + Math.cos(latitudeX1) * Math.cos(latitudeX2)
+                * Math.pow(Math.sin(longitudeDifference / 2),2);
+
+        double c = 2 * Math.asin(Math.sqrt(a));
+
+        // Radius of Earth in miles
+        double r = 3958.8;
+
+        // Result
+        return(c * r);
+    }
 
 }
