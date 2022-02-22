@@ -1,7 +1,14 @@
 package com.company.java;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -12,12 +19,17 @@ public class Main {
     static boolean gotPhoneNumber = false;
     static boolean gotGender = false;
     static boolean gotAge = false;
+    static boolean gotOrigin = false;
+    static boolean gotDestination = false;
+    static boolean gotDate = false;
+    static boolean gotDeparture = false;
 
     public static void main(String[] args) throws IOException {
 
         System.out.println("Welcome to the Flight Purchase Station!");
         System.out.println("Let's get some information about you before we begin.");
         personalInfo();
+        flightDetails();
 
     }
 
@@ -108,4 +120,75 @@ public class Main {
         System.out.println(passenger);
 
     }
+
+    private static void flightDetails() throws IOException{
+
+        System.out.println("Now for some information about your flight. ");
+        System.out.println("Where are you leaving from? ");
+
+        do {
+            try {
+                inputHandler.origin(flight);
+                if (flight.getOrigin().equals("")) {
+                    throw new InputMismatchException();
+                }
+                else {
+                    gotOrigin = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a Location: ");
+            }
+        } while (!gotOrigin);
+
+        System.out.println("What is your destination? ");
+
+        do {
+            try {
+                inputHandler.destination(flight);
+                if (flight.getDestination().equals("")) {
+                    throw new InputMismatchException();
+                }
+                else {
+                    gotDestination = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a Location: ");
+            }
+        } while (!gotDestination);
+
+        System.out.println("What day would you like to leave? (mm/dd/yy) ");
+
+        do {
+            try {
+                inputHandler.date(flight);
+                if (flight.getDate().equals("")) {
+                    throw new InputMismatchException();
+                }
+                else {
+                    gotDate = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a valid date (mm/dd/yy): ");
+            }
+        } while (!gotDate);
+
+        System.out.println("At what time? (hh:mm) ");
+
+        do {
+            try {
+                inputHandler.departure(flight);
+                if (flight.getDeparture().equals("")) {
+                    throw new InputMismatchException();
+                }
+                else {
+                    gotDeparture = true;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter a valid time. (hh:mm): ");
+            }
+        } while (!gotDeparture);
+
+    }
+
+
 }

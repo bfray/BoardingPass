@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class inputHandler {
 
@@ -44,8 +45,17 @@ public class inputHandler {
 
     // Input for Flight
     public static void boardingPassNumber(Flight flight) throws IOException {
-        String thisBPNum = keyListen.readLine();
-        flight.setBoardingPassNumber(thisBPNum);
+        String aToZ="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // 36 letter.
+        int targetStringLength = 6;
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(targetStringLength);
+        for (int i = 0; i < targetStringLength; i++) {
+            int randomLimitedInt = random.nextInt(aToZ.length());
+            buffer.append((char) randomLimitedInt);
+        }
+        String bpNum = buffer.toString();
+
+        flight.setBoardingPassNumber(bpNum);
     }
     public static void date(Flight flight) throws IOException {
         String thisDate = keyListen.readLine();
@@ -62,6 +72,11 @@ public class inputHandler {
     public static void eta(Flight flight) throws IOException {
         String thisETA = keyListen.readLine();
         flight.setEta(thisETA);
+    }
+
+    public static void departure(Flight flight) throws IOException {
+        String thisDeparture = keyListen.readLine();
+        flight.setEta(thisDeparture);
     }
 
 }
