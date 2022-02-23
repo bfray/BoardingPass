@@ -126,6 +126,7 @@ public class Main {
         System.out.println("Now for some information about your flight. ");
         System.out.println("Where are you leaving from? ");
 
+
         do {
             try {
                 inputHandler.origin(flight);
@@ -139,6 +140,7 @@ public class Main {
                 System.out.println("Invalid Input. Please enter a Location: ");
             }
         } while (!gotOrigin);
+
 
         System.out.println("What is your destination? ");
 
@@ -155,6 +157,10 @@ public class Main {
                 System.out.println("Invalid Input. Please enter a Location: ");
             }
         } while (!gotDestination);
+        flight.setCoordinates(flight);
+        flight.calculateDistance(flight.getLatitudeX1(), flight.getLatitudeX2(), flight.getLongitudeX1(), flight.getLongitudeX2());
+
+        flight.calculateETA(flight);
 
         System.out.println("What day would you like to leave? (mm/dd/yy) ");
 
@@ -188,6 +194,11 @@ public class Main {
             }
         } while (!gotDeparture);
 
+        inputHandler.boardingPassNumber(flight);
+        inputHandler.ticketPrice(flight, passenger);
+
+        System.out.println("Thank you for providing us with your flight information. Does this look correct (y/n)?");
+        System.out.println(flight);
     }
 
 

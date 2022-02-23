@@ -6,7 +6,9 @@ public class Flight {
     private String boardingPassNumber;
     private String date;
     private String origin;
+    private String originAirport;
     private String destination;
+    private String destinationAirport;
     private String eta;
     private String departure;
     private String ticketPrice;
@@ -73,6 +75,21 @@ public class Flight {
         this.ticketPrice = ticketPrice;
     }
 
+    public String getOriginAirport() {
+        return originAirport;
+    }
+
+    public void setOriginAirport(String originAirport) {
+        this.originAirport = originAirport;
+    }
+
+    public String getDestinationAirport() {
+        return destinationAirport;
+    }
+
+    public void setDestinationAirport(String destinationAirport) {
+        this.destinationAirport = destinationAirport;
+    }
     public Flight(){
 
     }
@@ -89,8 +106,8 @@ public class Flight {
     @Override
     public String toString(){
         return "Boarding Pass Number: " + getBoardingPassNumber() +
-                " | Date: " + getDate() + " | Origin: " + getOrigin() + " | Departure: " + getDeparture() +
-                " | Destination: " + getDestination() + " | ETA: " + getEta() + " | Ticket Price: " + getTicketPrice();
+                " | Date: " + getDate() + " | Origin: " + getOriginAirport() + " | Departure: " + getDeparture() +
+                " | Destination: " + getDestinationAirport() + " | ETA: " + getEta() + " | Ticket Price: " + getTicketPrice();
     }
 
     // A method to determine the distance between two given airports
@@ -199,6 +216,7 @@ public class Flight {
         }
 
     }
+
 
 
 }
