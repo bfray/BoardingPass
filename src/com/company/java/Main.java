@@ -40,7 +40,7 @@ public class Main {
         do {
             try {
                 inputHandler.name(passenger);
-                if (passenger.getName().equals("")) {
+                if (passenger.getName().equals("") || !inputValidation.checkName(passenger.getName())) {
                     throw new InputMismatchException();
                 }
                 else {
@@ -57,7 +57,7 @@ public class Main {
         do {
             try {
                 inputHandler.email(passenger);
-                if (passenger.getEmail().equals("")) {
+                if (passenger.getEmail().equals("") || !inputValidation.checkName(passenger.getEmail())) {
                     throw new InputMismatchException();
                 }
                 else {
@@ -73,7 +73,7 @@ public class Main {
         do {
             try {
                 inputHandler.phoneNumber(passenger);
-                if (passenger.getPhoneNumber().equals("")) {
+                if (passenger.getPhoneNumber().equals("") || !inputValidation.checkNumber(passenger.getPhoneNumber())) {
                     throw new InputMismatchException();
                 }
                 else {
@@ -84,12 +84,12 @@ public class Main {
             }
         } while (!gotPhoneNumber);
 
-        System.out.println("We offer discounts based on age and gender! What is your gender? ");
+        System.out.println("We offer discounts based on age and gender! What is your gender (M|F|O)? ");
 
         do {
             try {
                 inputHandler.gender(passenger);
-                if (passenger.getGender().equals("")) {
+                if (passenger.getGender().equals("") || !inputValidation.checkGender(passenger.getGender())) {
                     throw new InputMismatchException();
                 }
                 else {
@@ -105,7 +105,7 @@ public class Main {
         do {
             try {
                 inputHandler.age(passenger);
-                if (passenger.getAge().equals("")) {
+                if (passenger.getAge().equals("") || !inputValidation.checkAge(passenger.getAge())) {
                     throw new InputMismatchException();
                 }
                 else {
