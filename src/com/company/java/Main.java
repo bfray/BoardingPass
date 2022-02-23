@@ -57,7 +57,7 @@ public class Main {
         do {
             try {
                 inputHandler.email(passenger);
-                if (passenger.getEmail().equals("") || !inputValidation.checkName(passenger.getEmail())) {
+                if (passenger.getEmail().equals("") || !inputValidation.checkEmail(passenger.getEmail())) {
                     throw new InputMismatchException();
                 }
                 else {
