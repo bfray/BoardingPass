@@ -3,8 +3,7 @@ package com.company.java;
 import static jdk.nashorn.internal.objects.NativeRegExp.ignoreCase;
 
 public class TicketDiscount {//would have to extend an object to get ticket price
-    public double Discountedticket(Flight flight, Person person) {
-        double ticketPrice = Double.parseDouble(flight.getTicketPrice());
+    public static double Discountedticket(double ticketPrice, Person person) {
         String gender = person.getGender();
         int age = Integer.parseInt(person.getAge());
         if(age <= 12){
@@ -14,7 +13,7 @@ public class TicketDiscount {//would have to extend an object to get ticket pric
             ticketPrice = ticketPrice * 0.4;
         }
         else{
-            if(gender == ignoreCase("Female")){
+            if(gender.equals("F")){
                 ticketPrice = ticketPrice *0.75;
             }
         }

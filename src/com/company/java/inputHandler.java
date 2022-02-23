@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashMap;
+import java.util.Scanner;
 
 
 public class inputHandler {
@@ -19,8 +20,7 @@ public class inputHandler {
 
     static {
         try {
-            airports = new ArrayList<>(Files.readAllLines(Paths.get("D:\\GenSpark\\GroupProjects" +
-                        "\\BoardingPass\\BoardingPass\\src\\com\\company\\resources\\airportsInService")));
+            airports = new ArrayList<>(Files.readAllLines(Paths.get("src/com/company/resources/airportsInService")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,16 +62,14 @@ public class inputHandler {
 
     // Input for Flight
     public static void boardingPassNumber(Flight flight) {
-        String aToZ="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // 36 letter.
-        int targetStringLength = 6;
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Random random = new Random();
+        int targetStringLength = 6;
         StringBuilder buffer = new StringBuilder(targetStringLength);
         for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = random.nextInt(aToZ.length());
-            buffer.append((char) randomLimitedInt);
+            buffer.append(chars.charAt(random.nextInt(chars.length())));
         }
         String bpNum = buffer.toString();
-
         flight.setBoardingPassNumber(bpNum);
     }
     public static void date(Flight flight) throws IOException {
@@ -79,11 +77,37 @@ public class inputHandler {
         flight.setDate(thisDate);
     }
     public static void origin(Flight flight) throws IOException {
-        String thisOrigin = keyListen.readLine();
-        flight.setOrigin(thisOrigin);
+        for(int i = 0; i < airportList.size(); i++){
+            System.out.println(String.valueOf(i+1) + airportList.get(i));
+        }
+        Scanner input = new Scanner(System.in);
+        int selection = input.nextInt();
+        String coords = "";
+        String airport = "";
+        if(airportList.containsKey(selection)){
+            airport = airportList.get(selection -1);
+            coords = coordinateList.get(selection - 1);
+        }
+        System.out.println("you selected: " + airport);
+        String thisOrigin = coords;
+        flight.setOriginAirport(airport);
+        flight.setOrigin(thisOrigin);//this just sets the origin to the name of the airport, doesn't include the latitude and longitude
     }
     public static void destination(Flight flight) throws IOException {
-        String thisDestination = keyListen.readLine();
+        for(int i = 0; i < airportList.size(); i++){
+            System.out.println(String.valueOf(i+1) + airportList.get(i));
+        }
+        Scanner input = new Scanner(System.in);
+        int selection = input.nextInt();
+        String coords = "";
+        String airport = "";
+        if(airportList.containsKey(selection)){
+            airport = airportList.get(selection -1);
+            coords = coordinateList.get(selection - 1);
+        }
+        System.out.println("you selected: " + airport);
+        String thisDestination = coords;
+        flight.setDestinationAirport(airport);
         flight.setDestination(thisDestination);
     }
     public static void eta(Flight flight) throws IOException {
@@ -93,7 +117,26 @@ public class inputHandler {
 
     public static void departure(Flight flight) throws IOException {
         String thisDeparture = keyListen.readLine();
-        flight.setEta(thisDeparture);
+        flight.setDeparture(thisDeparture);
+    }
+
+    public static void ticketPrice(Flight flight, Person person) throws IOException {
+        //placel holder until i get the code with distance as a vairiable/method?
+
+        double distance = flight.getDistance();
+        double standardPrice = 0.0;
+        if(distance <= 1000){
+            standardPrice = 100;
+        }
+        else if(distance > 1000 && distance <= 2000){
+            standardPrice = 200;
+        }
+        else{
+            standardPrice = 300;
+        };
+        double price = TicketDiscount.Discountedticket(standardPrice, person);
+        String thisTicketPrice = String.valueOf(price);
+        flight.setTicketPrice(thisTicketPrice);
     }
 
 }
