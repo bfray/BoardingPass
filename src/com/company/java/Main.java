@@ -124,7 +124,7 @@ public class Main {
     private static void flightDetails() throws IOException{
 
         System.out.println("Now for some information about your flight. ");
-        System.out.println("Where are you leaving from? ");
+        System.out.println("Where are you leaving from? (1- 28) ");
 
 
         do {
@@ -137,12 +137,12 @@ public class Main {
                     gotOrigin = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a Location: ");
+                System.out.println("Invalid Input. Please enter a location number: ");
             }
         } while (!gotOrigin);
 
 
-        System.out.println("What is your destination? ");
+        System.out.println("What is your destination? (1-28) ");
 
         do {
             try {
@@ -154,20 +154,16 @@ public class Main {
                     gotDestination = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a Location: ");
+                System.out.println("Invalid Input. Please enter a location number: ");
             }
         } while (!gotDestination);
-        flight.setCoordinates(flight);
-        flight.calculateDistance(flight.getLatitudeX1(), flight.getLatitudeX2(), flight.getLongitudeX1(), flight.getLongitudeX2());
-
-        flight.calculateETA(flight);
 
         System.out.println("What day would you like to leave? (mm/dd/yy) ");
 
         do {
             try {
                 inputHandler.date(flight);
-                if (flight.getDate().equals("")) {
+                if (flight.getDate().equals("") || !inputValidation.checkDate(flight.getDate())) {
                     throw new InputMismatchException();
                 }
                 else {
@@ -178,26 +174,30 @@ public class Main {
             }
         } while (!gotDate);
 
-        System.out.println("At what time? (hh:mm) ");
+        System.out.println("At what time? (hh:mm AM/PM) ");
 
         do {
             try {
                 inputHandler.departure(flight);
-                if (flight.getDeparture().equals("")) {
+                if (flight.getDeparture().equals("") || !inputValidation.checkDeparture(flight.getDeparture())) {
                     throw new InputMismatchException();
                 }
                 else {
                     gotDeparture = true;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a valid time. (hh:mm): ");
+                System.out.println("Invalid Input. Please enter a valid time. (hh:mm AM/PM): ");
             }
         } while (!gotDeparture);
 
-        inputHandler.boardingPassNumber(flight);
+        flight.setCoordinates(flight);
+        flight.calculateDistance(flight.getLatitudeX1(), flight.getLatitudeX2(), flight.getLongitudeX1(), flight.getLongitudeX2());
         inputHandler.ticketPrice(flight, passenger);
+        flight.calculateETA(flight);
+        inputHandler.boardingPassNumber(flight);
 
-        System.out.println("Thank you for providing us with your flight information. Does this look correct (y/n)?");
+
+        System.out.println("Thank you for providing us with your flight details. This is your flight information, does this look correct (y/n)?");
         System.out.println(flight);
     }
 

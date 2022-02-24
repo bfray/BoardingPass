@@ -35,4 +35,15 @@ public class inputValidation {
         return Pattern.matches(regex, number);
     }
 
+    //https://www.tutorialspoint.com/accepting-date-strings-mm-dd-yyyy-format-using-java-regex
+    static boolean checkDate(String date){
+        String regex = "^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$";
+        return Pattern.matches(regex, date);
+    }
+
+    //https://regexland.com/regex-time-am-pm/
+    static boolean checkDeparture(String departure){
+        String regex = "^(0?[1-9]|1[0-2]):([0-5]\\d)\\s?((?:A|P)\\.?M\\.?)$";
+        return Pattern.matches(regex, departure);
+    }
 }

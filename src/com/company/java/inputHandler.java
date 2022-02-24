@@ -78,37 +78,48 @@ public class inputHandler {
     }
     public static void origin(Flight flight) throws IOException {
         for(int i = 0; i < airportList.size(); i++){
-            System.out.println(String.valueOf(i+1) + airportList.get(i));
+            System.out.println(String.valueOf(i+1) + ") " + airportList.get(i));
         }
         Scanner input = new Scanner(System.in);
         int selection = input.nextInt();
-        String coords = "";
-        String airport = "";
-        if(airportList.containsKey(selection)){
-            airport = airportList.get(selection -1);
-            coords = coordinateList.get(selection - 1);
+        if(selection > 0 && selection < 29){
+            String coords = "";
+            String airport = "";
+            if(airportList.containsKey(selection)){
+                airport = airportList.get(selection -1);
+                coords = coordinateList.get(selection - 1);
+            }
+            System.out.println("You have selected: " + airport);
+            String thisOrigin = coords;
+            flight.setOriginAirport(airport);
+            flight.setOrigin(thisOrigin);
         }
-        System.out.println("you selected: " + airport);
-        String thisOrigin = coords;
-        flight.setOriginAirport(airport);
-        flight.setOrigin(thisOrigin);//this just sets the origin to the name of the airport, doesn't include the latitude and longitude
+        else{
+            flight.setOrigin("");
+        }
     }
     public static void destination(Flight flight) throws IOException {
         for(int i = 0; i < airportList.size(); i++){
-            System.out.println(String.valueOf(i+1) + airportList.get(i));
+            System.out.println(String.valueOf(i+1) + ") " + airportList.get(i));
         }
         Scanner input = new Scanner(System.in);
         int selection = input.nextInt();
-        String coords = "";
-        String airport = "";
-        if(airportList.containsKey(selection)){
-            airport = airportList.get(selection -1);
-            coords = coordinateList.get(selection - 1);
+        if(selection > 0 && selection < 29){
+            String coords = "";
+            String airport = "";
+            if(airportList.containsKey(selection)){
+                airport = airportList.get(selection -1);
+                coords = coordinateList.get(selection - 1);
+            }
+            System.out.println("You have selected: " + airport);
+            String thisDestination = coords;
+            flight.setDestinationAirport(airport);
+            flight.setDestination(thisDestination);
         }
-        System.out.println("you selected: " + airport);
-        String thisDestination = coords;
-        flight.setDestinationAirport(airport);
-        flight.setDestination(thisDestination);
+        else {
+            flight.setDestination("");
+        }
+
     }
     public static void eta(Flight flight) throws IOException {
         String thisETA = keyListen.readLine();
