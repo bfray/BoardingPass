@@ -30,6 +30,11 @@ public class Main {
         System.out.println("Let's get some information about you before we begin.");
         personalInfo();
         flightDetails();
+        BoardingPass thisPass = new BoardingPass(passenger, flight);
+        System.out.println();
+        System.out.println("Flight Booked Successfully. Here are the details of your boarding pass: ");
+        System.out.println();
+        System.out.println(thisPass);
 
     }
 

@@ -64,7 +64,7 @@ public class Person {
     public String toString(){
 
         return "Passenger Name: " + getName() +
-                " | Email Address: " + getEmail() + " | Phone Number: " + getPhoneNumber() +
+                " | Email Address: " + getEmail() + " |\nPhone Number: " + getPhoneNumber() +
                 " | Gender: " + getGender() + " | Age: " + getAge();
 
     }

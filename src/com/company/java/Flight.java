@@ -1,7 +1,5 @@
 package com.company.java;
 
-import java.util.concurrent.TimeUnit;
-
 public class Flight {
     private String boardingPassNumber;
     private String date;
@@ -106,8 +104,9 @@ public class Flight {
     @Override
     public String toString(){
         return "Boarding Pass Number: " + getBoardingPassNumber() +
-                " | Date: " + getDate() + " | Origin: " + getOriginAirport() + " | Departure: " + getDeparture() +
-                " | Destination: " + getDestinationAirport() + " | ETA: " + getEta() + " | Ticket Price: " + getTicketPrice();
+                " | Date: " + getDate() + " |\nOrigin: " + getOriginAirport() + " | Departure: " + getDeparture() +
+                " |\nDestination: " + getDestinationAirport() + " | ETA: " + getEta() + " |\nTicket Price: "
+                + "$" + getTicketPrice() + "0";
     }
 
     // A method to determine the distance between two given airports
@@ -199,21 +198,69 @@ public class Flight {
         double getDecimal = decimalTime % 1;
         int convertToMinutes = (int) (getDecimal * 60);
         int convertToHours = (int) (decimalTime);
-        String hours = Integer.toString(convertToHours);
-        String minutes = Integer.toString(convertToMinutes);
+        String hours;
+        String minutes;
+        int departureHour = Integer.parseInt(getDeparture().substring(0, 2));
+        int departureMin = Integer.parseInt(getDeparture().substring(3, 5));
+        String departureAP = getDeparture().substring(6,8);
+        int magicHour = 0;
+        int magicMinute;
 
-        if (hours.equals("1")) {
-            setEta(hours + " Hour " + minutes + " Minutes");
-        }
-        else if (minutes.equals("1")) {
-            setEta(hours + " Hours " + minutes + " Minute");
-        }
-        else if (minutes.equals("1") && hours.equals("1")) {
-            setEta(hours + " Hour " + minutes + " Minute");
+        if (departureHour + convertToHours > 11) {
+
+            if (departureHour + convertToHours > 11 && departureAP.equals("PM")) {
+                departureAP = "AM";
+            }
+            else if (departureHour + convertToHours > 11 && departureAP.equals("AM")) {
+                departureAP = "PM";
+            }
+            if (departureHour + convertToHours > 12) {
+                magicHour = (departureHour + convertToHours) - 12;
+            }
+            else {
+                magicHour = departureHour + convertToHours;
+            }
         }
         else {
-            setEta(hours + " Hours " + minutes + " Minutes");
+            magicHour = departureHour + convertToHours;
         }
+
+        if (departureMin + convertToMinutes > 59) {
+
+            if (magicHour + 1 == 12 && departureAP.equals("PM")) {
+                departureAP = "AM";
+            }
+            else if (magicHour + 1 == 12 && departureAP.equals("AM")) {
+                departureAP = "PM";
+            }
+            if (magicHour + 1 == 13) {
+            magicHour = 1;
+            }
+            else {
+                magicHour++;
+            }
+
+            magicMinute = (departureMin + convertToMinutes) - 60;
+        }
+        else {
+            magicMinute = departureMin + convertToMinutes;
+        }
+
+        if (Integer.toString(magicHour).length() == 1) {
+            hours = "0" + magicHour;
+        }
+        else {
+            hours = Integer.toString(magicHour);
+        }
+
+        if (Integer.toString(magicMinute).length() == 1) {
+            minutes = "0" + magicMinute;
+        }
+        else {
+            minutes = Integer.toString(magicMinute);
+        }
+
+        setEta(hours + ":" + minutes + " " + departureAP);
 
     }
 
