@@ -1,16 +1,10 @@
 package com.company.java;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.io.InputStreamReader;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
-
-import static jdk.nashorn.internal.objects.NativeRegExp.ignoreCase;
 
 public class Main {
 
@@ -25,23 +19,37 @@ public class Main {
     static boolean gotDestination = false;
     static boolean gotDate = false;
     static boolean gotDeparture = false;
+    static boolean repeat = true;
 
     public static void main(String[] args) throws IOException {
 
-        System.out.println("Welcome to the Flight Purchase Station!");
-        System.out.println("Let's get some information about you before we begin.");
-        personalInfo();
-        flightDetails();
-        BoardingPass thisPass = new BoardingPass(passenger, flight);
-        System.out.println();
-        System.out.println("Flight Booked Successfully. Here are the details of your boarding pass: ");
-        System.out.println();
-        System.out.println(thisPass);
+        while(repeat) {
+
+            System.out.println("Entering Ticket Purchase Station.");
+
+            personalInfo();
+
+            flightDetails();
+
+            BoardingPass thisPass = new BoardingPass(passenger, flight);
+            System.out.println();
+            System.out.println("Flight Booked Successfully. Here are the details of your boarding pass: ");
+            System.out.println();
+            System.out.println(thisPass);
+            System.out.println("This information has been saved to your local resources directory.");
+
+            newTicket();
+
+        }
 
     }
 
     private static void personalInfo() throws IOException {
+
+        System.out.println("Let's get some information about you before we begin.");
+
         String inputagain = "n";
+
         while(inputagain.equalsIgnoreCase("n") ){
             System.out.println("What is your name? ");
 
@@ -209,7 +217,7 @@ public class Main {
                 }
             } while (!gotDeparture);
 
-            flight.setCoordinates(flight);
+            flight.setCoordinates();
             flight.calculateDistance(flight.getLatitudeX1(), flight.getLatitudeX2(), flight.getLongitudeX1(), flight.getLongitudeX2());
             inputHandler.ticketPrice(flight, passenger);
             flight.calculateETA(flight);
@@ -228,8 +236,34 @@ public class Main {
             }
         }
 
+    }
 
+    private static void newTicket() throws IOException {
 
+        System.out.println();
+        System.out.println("Would you like to purchase another ticket (y/n)?");
+        String response = inputHandler.yN("");
+
+        if (response.equalsIgnoreCase("n")) {
+            System.out.println("Thank you for flying with us. Have a nice day!");
+            repeat = false;
+        }
+        else {
+
+            inputHandler.keyListen = new BufferedReader(new InputStreamReader(System.in));
+            passenger = new Person();
+            flight = new Flight();
+            gotName = false;
+            gotEmail = false;
+            gotPhoneNumber = false;
+            gotGender = false;
+            gotAge = false;
+            gotOrigin = false;
+            gotDestination = false;
+            gotDate = false;
+            gotDeparture = false;
+
+        }
     }
 
 

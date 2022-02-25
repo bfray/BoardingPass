@@ -209,6 +209,22 @@ class FlightTest {
         flight.setLatitudeX2(Double.parseDouble(dLat));
         flight.setLongitudeX2(Double.parseDouble(dLon));
 
+        assertEquals(33.6407d, flight.getLatitudeX1(), "flight.setLatitudeX1 malfunction");
+        assertEquals(84.4277d, flight.getLongitudeX1(), "flight.setLongitudeX1 malfunction");
+        assertEquals(32.8998d, flight.getLatitudeX2(), "flight.setLongitudeX1 malfunction");
+        assertEquals(97.0403d, flight.getLongitudeX2(), "flight.setLongitudeX2 malfunction");
+
+    }
+
+    @Test
+    void setCoordinates2() {
+        String o = "[33.6407, 84.4277]";
+        String d = "[32.8998, 97.0403]";
+
+        flight.setOrigin(o);
+        flight.setDestination(d);
+
+        flight.setCoordinates();
 
         assertEquals(33.6407d, flight.getLatitudeX1(), "flight.setLatitudeX1 malfunction");
         assertEquals(84.4277d, flight.getLongitudeX1(), "flight.setLongitudeX1 malfunction");
@@ -225,6 +241,27 @@ class FlightTest {
         flight.calculateETA(flight);
 
         assertEquals("12:24 PM", flight.getEta(), "flight.calculateETA() error");
+
+    }
+    @Test
+
+    void calculateETA2() {
+
+        flight.setDistance(729.9592539129452);
+        flight.setDeparture("11:00 PM");
+        flight.calculateETA(flight);
+
+        assertEquals("12:24 AM", flight.getEta(), "flight.calculateETA() error");
+
+    }
+
+    void calculateETA3() {
+
+        flight.setDistance(729.9592539129452);
+        flight.setDeparture("11:00 PM");
+        flight.calculateETA(flight);
+
+        assertEquals("12:24 AM", flight.getEta(), "flight.calculateETA() error");
 
     }
 }

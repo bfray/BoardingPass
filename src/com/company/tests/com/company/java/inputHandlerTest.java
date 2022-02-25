@@ -103,4 +103,63 @@ class inputHandlerTest {
         assertEquals("100.0", flight.getTicketPrice(), "Error: inputHandler.ticketPrice()");
 
     }
+
+    @Test
+    void ticketPrice2() {
+
+        Flight flight = new Flight();
+        Person person = new Person();
+        inputHandler inputHandler = new inputHandler();
+
+        flight.setDistance(1500);
+        person.setAge("20");
+        person.setGender("M");
+
+        try{
+            com.company.java.inputHandler.ticketPrice(flight, person);
+        }catch(IOException e){
+            System.err.print("IO exception");
+        }
+
+        assertEquals("200.0", flight.getTicketPrice(), "Error: inputHandler.ticketPrice()");
+
+    }
+
+    void ticketPrice3() {
+
+        Flight flight = new Flight();
+        Person person = new Person();
+        inputHandler inputHandler = new inputHandler();
+
+        flight.setDistance(5000);
+        person.setAge("20");
+        person.setGender("M");
+
+        try{
+            com.company.java.inputHandler.ticketPrice(flight, person);
+        }catch(IOException e){
+            System.err.print("IO exception");
+        }
+
+        assertEquals("300.0", flight.getTicketPrice(), "Error: inputHandler.ticketPrice()");
+
+    }
+
+    @Test
+    void yesOrNo1() throws IOException {
+
+        String actual = inputHandler.yN("N");
+
+        assertEquals("n", actual, "The yN(String t) method has failed");
+
+    }
+
+    @Test
+    void yesOrNo2() throws IOException {
+
+        String actual = inputHandler.yN("Y");
+
+        assertEquals("y", actual, "The yN(String t) method has failed");
+
+    }
 }

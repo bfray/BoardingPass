@@ -88,14 +88,16 @@ public class Flight {
     public void setDestinationAirport(String destinationAirport) {
         this.destinationAirport = destinationAirport;
     }
+
     public Flight(){
 
     }
+
     public Flight(String bpNum, String day, String from, String to, String eta, String leaving, String price){
         this.boardingPassNumber = bpNum;
         this.date = day;
-        this.origin = from;
-        this.destination = to;
+        this.originAirport = from;
+        this.destinationAirport = to;
         this.eta = eta;
         this.departure = leaving;
         this.ticketPrice = price;
@@ -170,7 +172,7 @@ public class Flight {
     }
 
     // Method to extract coordinates from flight numbers
-    public void setCoordinates(Flight flight) {
+    public void setCoordinates() {
 
         String oLat;
         String oLon;
@@ -202,16 +204,23 @@ public class Flight {
         String minutes;
         int departureHour = Integer.parseInt(getDeparture().substring(0, 2));
         int departureMin = Integer.parseInt(getDeparture().substring(3, 5));
-        String departureAP = getDeparture().substring(6,8);
-        int magicHour = 0;
+        String departureAP = getDeparture().substring(5);
+        int magicHour;
         int magicMinute;
+
+        if (departureAP.contains("PM")) {
+            departureAP = "PM";
+        }
+        else if (departureAP.contains("AM")) {
+            departureAP = "AM";
+        }
 
         if (departureHour + convertToHours > 11) {
 
-            if (departureHour + convertToHours > 11 && departureAP.equals("PM")) {
+            if (departureHour + convertToHours > 11 && departureAP.contains("PM")) {
                 departureAP = "AM";
             }
-            else if (departureHour + convertToHours > 11 && departureAP.equals("AM")) {
+            else if (departureHour + convertToHours > 11 && departureAP.contains("AM")) {
                 departureAP = "PM";
             }
             if (departureHour + convertToHours > 12) {
@@ -227,10 +236,10 @@ public class Flight {
 
         if (departureMin + convertToMinutes > 59) {
 
-            if (magicHour + 1 == 12 && departureAP.equals("PM")) {
+            if (magicHour + 1 == 12 && departureAP.contains("PM")) {
                 departureAP = "AM";
             }
-            else if (magicHour + 1 == 12 && departureAP.equals("AM")) {
+            else if (magicHour + 1 == 12 && departureAP.contains("AM")) {
                 departureAP = "PM";
             }
             if (magicHour + 1 == 13) {
