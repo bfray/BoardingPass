@@ -45,13 +45,21 @@ class inputHandlerTest {
     }
 
     @Test
-    void boardingPassNumber() {
+    void boardingPassNumberLength() {
        Flight flight = new Flight();
        inputHandler.boardingPassNumber(flight);
        String random = flight.getBoardingPassNumber();
        // this is incorrect, need to refactor
-       assertEquals(random, flight.getBoardingPassNumber(), "Error: inputHandler.boardinPassNumber()");
+       assertEquals(6, random.length(), "Error: inputHandler.boardinPassNumberLength()");
+    }
 
+    @Test
+    void boardingPassNumberCharacter(){
+        Flight flight = new Flight();
+        inputHandler.boardingPassNumber(flight);
+        String random = flight.getBoardingPassNumber();
+        String charsTest = "^[A-Z0-9]*$";
+        assertTrue(random.matches(charsTest), "Failed at checking given characters, meaning string has invalid characters");
     }
 
 
