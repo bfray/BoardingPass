@@ -53,7 +53,7 @@ class inputValidationTest {
     @Test
     void checkDeparture() {
         Flight flight = new Flight();
-        flight.setDate("11/22/22");
-        assertTrue(inputValidation.checkDate(flight.getDate()), "Error: inputValidation.checkDate");
+        flight.setDeparture("11:00 AM");
+        assertTrue(inputValidation.checkDeparture(flight.getDeparture()), "Error: inputValidation.checkDeparture");
     }
 }

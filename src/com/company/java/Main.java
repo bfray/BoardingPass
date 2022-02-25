@@ -10,6 +10,8 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+import static jdk.nashorn.internal.objects.NativeRegExp.ignoreCase;
+
 public class Main {
 
     static Person passenger = new Person();
@@ -39,171 +41,195 @@ public class Main {
     }
 
     private static void personalInfo() throws IOException {
+        String inputagain = "n";
+        while(inputagain.equalsIgnoreCase("n") ){
+            System.out.println("What is your name? ");
 
-        System.out.println("What is your name? ");
+            do {
+                try {
+                    inputHandler.name(passenger);
+                    if (passenger.getName().equals("") || !inputValidation.checkName(passenger.getName())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotName = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a name: ");
+                }
+            } while (!gotName);
 
-        do {
-            try {
-                inputHandler.name(passenger);
-                if (passenger.getName().equals("") || !inputValidation.checkName(passenger.getName())) {
-                    throw new InputMismatchException();
+            System.out.println("Alright, " + passenger.getName() + ", what is a valid email" +
+                    " address for us to contact you at? ");
+
+            do {
+                try {
+                    inputHandler.email(passenger);
+                    if (passenger.getEmail().equals("") || !inputValidation.checkEmail(passenger.getEmail())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotEmail = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a valid Email Address: ");
                 }
-                else {
-                    gotName = true;
+            } while (!gotEmail);
+
+            System.out.println("What is your phone number? ");
+
+            do {
+                try {
+                    inputHandler.phoneNumber(passenger);
+                    if (passenger.getPhoneNumber().equals("") || !inputValidation.checkNumber(passenger.getPhoneNumber())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotPhoneNumber = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a valid Phone Number: ");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a name: ");
+            } while (!gotPhoneNumber);
+
+            System.out.println("We offer discounts based on age and gender! What is your gender (M|F|O)? ");
+
+            do {
+                try {
+                    inputHandler.gender(passenger);
+                    if (passenger.getGender().equals("") || !inputValidation.checkGender(passenger.getGender())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotGender = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter your Gender: ");
+                }
+            } while (!gotGender);
+
+            System.out.println("How old are you? ");
+
+            do {
+                try {
+                    inputHandler.age(passenger);
+                    if (passenger.getAge().equals("") || !inputValidation.checkAge(passenger.getAge())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotAge = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter your Age: ");
+                }
+            } while (!gotAge);
+
+            System.out.println("Thank you for providing us with your personal information. Does this look correct (y/n)?");
+            System.out.println(passenger);
+            Scanner input = new Scanner(System.in);
+            String checkInfo = input.next();
+            if(checkInfo.equalsIgnoreCase("y")){
+                inputagain = "y";
             }
-        } while (!gotName);
-
-        System.out.println("Alright, " + passenger.getName() + ", what is a valid email" +
-                " address for us to contact you at? ");
-
-        do {
-            try {
-                inputHandler.email(passenger);
-                if (passenger.getEmail().equals("") || !inputValidation.checkEmail(passenger.getEmail())) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotEmail = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a valid Email Address: ");
+            else {
+                inputagain = "n";
             }
-        } while (!gotEmail);
+        }
 
-        System.out.println("What is your phone number? ");
 
-        do {
-            try {
-                inputHandler.phoneNumber(passenger);
-                if (passenger.getPhoneNumber().equals("") || !inputValidation.checkNumber(passenger.getPhoneNumber())) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotPhoneNumber = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a valid Phone Number: ");
-            }
-        } while (!gotPhoneNumber);
-
-        System.out.println("We offer discounts based on age and gender! What is your gender (M|F|O)? ");
-
-        do {
-            try {
-                inputHandler.gender(passenger);
-                if (passenger.getGender().equals("") || !inputValidation.checkGender(passenger.getGender())) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotGender = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter your Gender: ");
-            }
-        } while (!gotGender);
-
-        System.out.println("How old are you? ");
-
-        do {
-            try {
-                inputHandler.age(passenger);
-                if (passenger.getAge().equals("") || !inputValidation.checkAge(passenger.getAge())) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotAge = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter your Age: ");
-            }
-        } while (!gotAge);
-
-        System.out.println("Thank you for providing us with your personal information. Does this look correct (y/n)?");
-        System.out.println(passenger);
 
     }
 
     private static void flightDetails() throws IOException{
+        String inputagain = "n";
+        while(inputagain.equalsIgnoreCase("n") ){
+            System.out.println("Now for some information about your flight. ");
+            System.out.println("Where are you leaving from? (1- 28) ");
 
-        System.out.println("Now for some information about your flight. ");
-        System.out.println("Where are you leaving from? (1- 28) ");
-
-
-        do {
-            try {
-                inputHandler.origin(flight);
-                if (flight.getOrigin().equals("")) {
-                    throw new InputMismatchException();
+            do {
+                try {
+                    inputHandler.origin(flight);
+                    if (flight.getOrigin().equals("")) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotOrigin = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a location number: ");
                 }
-                else {
-                    gotOrigin = true;
+            } while (!gotOrigin);
+
+
+            System.out.println("What is your destination? (1-28) ");
+
+            do {
+                try {
+                    inputHandler.destination(flight);
+                    if (flight.getDestination().equals("")) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotDestination = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a location number: ");
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a location number: ");
+            } while (!gotDestination);
+
+            System.out.println("What day would you like to leave? (mm/dd/yy) ");
+
+            do {
+                try {
+                    inputHandler.date(flight);
+                    if (flight.getDate().equals("") || !inputValidation.checkDate(flight.getDate())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotDate = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a valid date (mm/dd/yy): ");
+                }
+            } while (!gotDate);
+
+            System.out.println("At what time? (hh:mm AM/PM) ");
+
+            do {
+                try {
+                    inputHandler.departure(flight);
+                    if (flight.getDeparture().equals("") || !inputValidation.checkDeparture(flight.getDeparture())) {
+                        throw new InputMismatchException();
+                    }
+                    else {
+                        gotDeparture = true;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid Input. Please enter a valid time. (hh:mm AM/PM): ");
+                }
+            } while (!gotDeparture);
+
+            flight.setCoordinates(flight);
+            flight.calculateDistance(flight.getLatitudeX1(), flight.getLatitudeX2(), flight.getLongitudeX1(), flight.getLongitudeX2());
+            inputHandler.ticketPrice(flight, passenger);
+            flight.calculateETA(flight);
+            inputHandler.boardingPassNumber(flight);
+
+
+            System.out.println("Thank you for providing us with your flight details. This is your flight information, does this look correct (y/n)?");
+            System.out.println(flight);
+            Scanner input = new Scanner(System.in);
+            String checkInfo = input.next();
+            if(checkInfo.equalsIgnoreCase("y")){
+                inputagain = "y";
             }
-        } while (!gotOrigin);
-
-
-        System.out.println("What is your destination? (1-28) ");
-
-        do {
-            try {
-                inputHandler.destination(flight);
-                if (flight.getDestination().equals("")) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotDestination = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a location number: ");
+            else {
+                inputagain = "n";
             }
-        } while (!gotDestination);
-
-        System.out.println("What day would you like to leave? (mm/dd/yy) ");
-
-        do {
-            try {
-                inputHandler.date(flight);
-                if (flight.getDate().equals("") || !inputValidation.checkDate(flight.getDate())) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotDate = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a valid date (mm/dd/yy): ");
-            }
-        } while (!gotDate);
-
-        System.out.println("At what time? (hh:mm AM/PM) ");
-
-        do {
-            try {
-                inputHandler.departure(flight);
-                if (flight.getDeparture().equals("") || !inputValidation.checkDeparture(flight.getDeparture())) {
-                    throw new InputMismatchException();
-                }
-                else {
-                    gotDeparture = true;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input. Please enter a valid time. (hh:mm AM/PM): ");
-            }
-        } while (!gotDeparture);
-
-        flight.setCoordinates(flight);
-        flight.calculateDistance(flight.getLatitudeX1(), flight.getLatitudeX2(), flight.getLongitudeX1(), flight.getLongitudeX2());
-        inputHandler.ticketPrice(flight, passenger);
-        flight.calculateETA(flight);
-        inputHandler.boardingPassNumber(flight);
+        }
 
 
-        System.out.println("Thank you for providing us with your flight details. This is your flight information, does this look correct (y/n)?");
-        System.out.println(flight);
+
     }
 
 
