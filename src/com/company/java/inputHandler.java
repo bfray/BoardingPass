@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class inputHandler {
@@ -55,6 +52,7 @@ public class inputHandler {
         String thisGender = keyListen.readLine();
         person.setGender(thisGender);
     }
+
     public static void age(Person person) throws IOException {
         String thisAge = keyListen.readLine();
         person.setAge(thisAge);
@@ -72,13 +70,15 @@ public class inputHandler {
         String bpNum = buffer.toString();
         flight.setBoardingPassNumber(bpNum);
     }
+
     public static void date(Flight flight) throws IOException {
         String thisDate = keyListen.readLine();
         flight.setDate(thisDate);
     }
-    public static void origin(Flight flight) throws IOException {
+
+    public static void origin(Flight flight) {
         for(int i = 0; i < airportList.size(); i++){
-            System.out.println(String.valueOf(i+1) + ") " + airportList.get(i));
+            System.out.println(i + 1 + ") " + airportList.get(i));
         }
         Scanner input = new Scanner(System.in);
         int selection = input.nextInt();
@@ -98,9 +98,10 @@ public class inputHandler {
             flight.setOrigin("");
         }
     }
-    public static void destination(Flight flight) throws IOException {
+
+    public static void destination(Flight flight) {
         for(int i = 0; i < airportList.size(); i++){
-            System.out.println(String.valueOf(i+1) + ") " + airportList.get(i));
+            System.out.println(i + 1 + ") " + airportList.get(i));
         }
         Scanner input = new Scanner(System.in);
         int selection = input.nextInt();
@@ -121,10 +122,6 @@ public class inputHandler {
         }
 
     }
-    public static void eta(Flight flight) throws IOException {
-        String thisETA = keyListen.readLine();
-        flight.setEta(thisETA);
-    }
 
     public static void departure(Flight flight) throws IOException {
         String thisDeparture = keyListen.readLine();
@@ -132,10 +129,9 @@ public class inputHandler {
     }
 
     public static void ticketPrice(Flight flight, Person person) throws IOException {
-        //placel holder until i get the code with distance as a vairiable/method?
 
         double distance = flight.getDistance();
-        double standardPrice = 0.0;
+        double standardPrice;
         if(distance <= 1000){
             standardPrice = 100;
         }
@@ -144,10 +140,40 @@ public class inputHandler {
         }
         else{
             standardPrice = 300;
-        };
+        }
         double price = TicketDiscount.Discountedticket(standardPrice, person);
         String thisTicketPrice = String.valueOf(price);
         flight.setTicketPrice(thisTicketPrice);
     }
 
+    public static String yN (String t) throws IOException {
+        String yesNo = "";
+        boolean correctInput = false;
+
+        if (!t.equals("")) {
+            yesNo = t;
+        }
+
+        do {
+            try {
+                if (yesNo.equals("")) {
+                    yesNo = keyListen.readLine();
+                }
+                    yesNo = yesNo.toLowerCase();
+                if (yesNo.equals("n") || yesNo.equals("y")) {
+                    correctInput = true;
+                    return yesNo;
+                }
+                else {
+                    throw new InputMismatchException();
+                }
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input. Please enter y or n: ");
+            }
+
+        } while (!correctInput);
+
+        return yesNo;
+    }
 }

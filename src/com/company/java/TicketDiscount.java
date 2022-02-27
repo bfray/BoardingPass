@@ -1,7 +1,5 @@
 package com.company.java;
 
-import static jdk.nashorn.internal.objects.NativeRegExp.ignoreCase;
-
 public class TicketDiscount {//would have to extend an object to get ticket price
     public static double Discountedticket(double ticketPrice, Person person) {
         String gender = person.getGender();
